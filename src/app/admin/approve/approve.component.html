@@ -1,0 +1,531 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-2 ml-5">
+                <b>วันที่</b><br>
+                <input type="date" [(ngModel)]="DateStart" class="form-control form-control-sm"
+                    name="StartDate" placeholder="DD/MM/YYYY" autocomplete=off>
+            </div>
+            <div class="col-lg-2 ml-5">
+                <b>ถึงวันที่</b><br>
+                <input type="date" [(ngModel)]="DateEnd" class="form-control form-control-sm" name="EndDate"
+                    placeholder="DD/MM/YYYY" autocomplete=off>
+            </div>
+            <div class="col-lg-2"><br>
+                <button (click)="GetListBooking()" type="submit" class="btn btn-info btn-sm btn-block"><b>SEARCH</b></button>
+            </div>
+            <div class="col-lg-4 text-right"><br>
+                <b>รายการทั้งหมด <span style="font-size:17px;">{{databook.length}}</span> รายการ</b>
+            </div>
+        </div>
+        <p-messages [(value)]="Msgs"></p-messages>
+        <div class="row mt-2">
+            <div class="col-md-12">
+                <p-table [value]="databook" [rows]="50" [paginator]="true" [pageLinks]="3"
+                    [rowsPerPageOptions]="[10,50,100,150,200]" [responsive]="true" styleClass="p-datatable-sm"
+                    responsiveLayout="scroll">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th style="width: 50px;">#</th>
+                            <th>หมายเลข Booking</th>
+                            <th>ชื่อห้องประชุม</th>
+                            <th>ชื่อผู้จอง</th>
+                            <th>วันที่-เวลาเริ่ม</th>
+                            <th>วันที่-เวลาสิ้นสุด</th>
+                            <th>Status</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+                        <tr>
+                            <td>
+                                {{rowIndex+1}}
+                            </td>
+                            <td>
+                                <a href="" (click)="GetByBooking(item.Id,$event)"
+                                    style="cursor: pointer;"><b>{{item.BookingNo}}</b></a>
+                            </td>
+                            <td>{{item.RoomName}}</td>
+                            <td>{{item.BookBy}}</td>
+                            <td>
+                                <span>{{item.StartDate}} {{item.StartTime}} </span>
+                            </td>
+                            <td>
+                                <span>{{item.EndDate}} {{item.EndTime}} </span>
+                            </td>
+                            <td>
+                                <span>
+                                    <div class="alert mb-0 py-1" style="text-align:center" [ngClass]="{
+                                      'alert-warning':item.BookStatus == 'B',
+                                      'alert-success':item.BookStatus == 'A',
+                                      'alert-danger':item.BookStatus == 'C'
+                                    }">
+                                        <strong>{{item.BookStatusDescription}}</strong>
+                                    </div>
+                                </span>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="bookingdetail" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">รายละเอียดการจอง</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="container" style="font-size: 16px;">
+                    <div class="row">
+                        <!-- เพิ่ม error -->
+                        <div class="col-lg-12">
+                            <p-messages [(value)]="msgsbyid"></p-messages>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h3><b>{{databookbyid.BookingNo}}</b></h3>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="alert" [ngClass]="{
+                                'alert-warning':databookbyid.BookStatus == 'B',
+                                'alert-success':databookbyid.BookStatus == 'A',
+                                'alert-danger':databookbyid.BookStatus == 'C'
+                                }">
+                                <strong>{{databookbyid.BookStatusDescription}}</strong>&nbsp;&nbsp;&nbsp;&nbsp;<span
+                                    *ngIf="this.databookbyid.BookStatus == 'C'"><strong>เหตุผลการยกเลิก : </strong>
+                                    {{databookbyid.CancelReasons}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-lg-6">
+                            <b>ชื่อห้อง :</b> {{databookbyid.RoomName}}
+                        </div>
+                        <div class="col-lg-6">
+                            <b>จุดประสงค์การใช้ห้อง :</b> {{databookbyid.Purpose}}
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-lg-6">
+                            <b>วันที่เริ่ม :</b> {{databookbyid.StartDate}} {{databookbyid.StartTime}}
+                        </div>
+                        <div class="col-lg-6">
+                            <b>วันที่สิ้นสุด :</b> {{databookbyid.EndDate}} {{databookbyid.EndTime}}
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-lg-6">
+                            <b>ชื่อผู้จอง :</b> {{databookbyid.BookBy}}
+                        </div>
+                        <div class="col-lg-6">
+                            <b>แผนก :</b> {{databookbyid.BookDepartment}}
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-lg-6">
+                            <b>ชื่อบริษัท :</b> {{databookbyid.BookCompany}}
+                        </div>
+                        <div class="col-lg-6">
+                            <b>ที่อยู่บริษัท :</b> {{databookbyid.AddressNo}}
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-lg-6">
+                            <b>เบอร์โทรศัพท์ :</b> {{databookbyid.ContactPhone}}
+                        </div>
+                        <div class="col-lg-6">
+                            <b>Email :</b> {{databookbyid.Email}}
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-lg-6">
+                            <b>จำนวนผู้เข้าร่วม :</b> {{databookbyid.TotalPerson}}
+                        </div>
+                        <div class="col-lg-6">
+                            <b>อื่นๆ(โปรดระบุ) :</b> {{databookbyid.Remark}}
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-md-2">
+                            <div class=""><b>อุปกรณ์ให้บริการเพิ่มเติม</b></div>
+                        </div>
+                        <div class="col-md-10">
+                            <ul>
+                                <li *ngFor="let item of databookbyid.Option;">{{item.Description}} <span *ngIf="item.Id == 3"><br> เลขหมายปลายทาง : {{item.Destination}}</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row mb-1">
+                        <div class="col-lg-6">
+                            <!-- <b>ประเภทลูกค้า </b><span *ngIf="this.databookbyid.BookStatus != 'B'">:
+                                {{databookbyid.CustomerType}}</span>
+                            <select class="form-control form-control-sm"
+                                [(ngModel)]="approvebookingmodel.CustomerType"
+                                *ngIf="this.databookbyid.BookStatus == 'B'">
+                                <option selected value="">---กรุณาเลือกรายการ---</option>
+                                <option [value]="1">ภายใน</option>
+                                <option [value]="2">ภายนอก</option>
+                            </select> -->
+                            <small style="color:#FF3434" *ngIf="this.isErrorCustomerType == true">กรุณาเลือกประเภทลูกค้า</small>
+                        </div>
+                        <div class="col-lg-3">
+                            <button class="btn btn-primary btn-block" (click)="printBooking()"><i class="fa fa-print" aria-hidden="true"></i> พิมพ์รายละเอียดการจอง</button>
+                        </div>
+                    </div>
+                    <div class="row my-5" >
+                        <div class="col-lg-6" *ngIf="this.databookbyid.BookStatus == 'B'">
+                            <button type="button" class="btn btn-success btn-block" (click)="ApproveBooking(databookbyid.Id)" >อนุมัติการจองห้องประชุม</button>
+                        </div>
+                        <div class="col-lg-3"*ngIf="this.databookbyid.BookStatus != 'C'" >
+                            <button type="button" class="btn btn-danger btn-block" (click)="CancelBookingByStaff(databookbyid.Id)">ยกเลิกการจองห้องประชุม</button>
+                        </div>
+                        <div class="col-lg-3" *ngIf="this.databookbyid.BookStatus != 'C'">
+                            <input type="text" [(ngModel)]="cancelbookingmodel.CancelReasons" class="form-control" placeholder="เหตุผลการยกเลิกจองห้องประชุม">
+                            <div class="alert-danger mt-1" *ngIf="this.isActiveReason == true">
+                                กรุณากรอกเหตุผลการยกเลิกจองห้องประชุม
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container page" size="A4" #pdfData hidden="true">
+    <section style="background-color:#FFFFFF;font-size:12px;">
+        <div class="container">
+            <div class="row">
+                <h6 class="py-2"><b>รายละเอียดจองห้อง</b></h6>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <label><b>ชื่อห้อง</b></label>
+                    <p>{{databookbyid.RoomName}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <label><b>หมายเลขการจอง / สถานะ</b></label>
+                    <p>{{databookbyid.BookingNo}} / {{databookbyid.BookStatusDescription}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <label><b>วันที่ใช้ห้องประชุม</b></label>
+                    <p>{{databookbyid.StartDate}}</p>
+                </div>
+                <div class="col-sm-3">
+                    <label><b>เวลาเริ่ม</b></label>
+                    <p>{{databookbyid.StartTime}}</p>
+                </div>
+                <div class="col-sm-3">
+                    <label><b>เวลาสิ้นสุด</b></label>
+                    <p>{{databookbyid.EndTime}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <label><b>ชื่อผู้จอง</b></label>
+                    <p>{{databookbyid.BookBy}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <label><b>แผนก</b></label>
+                    <p>{{databookbyid.BookDepartment}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <label><b>ชื่อบริษัท</b></label>
+                    <p>{{databookbyid.BookCompany}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <label><b>ที่อยู่บริษัท</b></label>
+                    <p>{{databookbyid.AddressNo}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <label><b>เบอร์โทรศัพท์ที่ติดต่อได้</b></label>
+                    <p>{{databookbyid.ContactPhone}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <label><b>E-mail</b></label>
+                    <p>{{databookbyid.Email}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <label><b>จำนวนผู้เข้าร่วม(คน)</b></label>
+                    <p>{{databookbyid.TotalPerson}}</p>
+                </div>
+                <div class="col-sm-6">
+                    <label><b>อื่นๆ(โปรดระบุ)</b></label>
+                    <p><u>{{databookbyid.Remark}}</u></p>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-sm-5">
+                    <div class="form-row ">
+                        <div class="form-group">
+                            <h6>อุปกรณ์มาตรฐาน ที่มีให้บริการภายในห้อง</h6>
+                            <ul>
+                                <li *ngFor="let item of databookbyid.OptionRoom">{{item.Description}}</li>
+                            </ul>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <h6>อุปกรณ์ที่สามารถให้บริการเพิ่มเติม</h6>
+                                <ul>
+                                    <li *ngFor="let item of databookbyid.Option">{{item.Description}} <span *ngIf="item.Id == 3"><br> เลขหมายปลายทาง : {{item.Destination}}</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ตารางเรทราคาห้อง -->
+                <div class="col-sm-7"> 
+                    <!-- ทรงวาด -->
+                        <table class="table table-sm table-bordered" style="font-size: 9px;" *ngIf="databookbyid.RoomId == 1">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th style="width: 60%;text-align: center;">อัตราค่าบริการห้อง-วันทำการ</th>
+                                    <th style="text-align: center;">ทรงวาด</th>
+                                    <th style="text-align: center;">ราคาโปรโมชั่น</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>เต็มวัน</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">12,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">9,600 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ครึ่งวัน</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">7,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">5,600 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ค่าบริการต่อ ชม. *</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">2,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">1,600 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ส่วนเกิน ชม.ละ **</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">2,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">1,600 บาท</td>
+                                </tr>
+                            </tbody>
+                            <thead>
+                                <tr class="table-primary">
+                                    <th style="width: 60%;text-align: center;">อัตราค่าบริการห้อง-วันหยุด</th>
+                                    <th style="text-align: center;">ทรงวาด</th>
+                                    <th style="text-align: center;">ราคาโปรโมชั่น</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>เต็มวัน</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">15,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">9,600 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ครึ่งวัน</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">9,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">5,600 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ส่วนเกิน ชม.ละ **</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">2,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">1,600 บาท</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    <!-- ทรงวาด -->
+                    <!-- รัชดา -->
+                        <table class="table table-sm table-bordered" style="font-size: 9px;" *ngIf="databookbyid.RoomId == 2">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th style="width: 60%;text-align: center;">อัตราค่าบริการห้อง-วันทำการ</th>
+                                    <th style="text-align: center;">รัชดา</th>
+                                    <th style="text-align: center;">ราคาโปรโมชั่น</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>เต็มวัน</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">18,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">14,000 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ครึ่งวัน</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">10,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">8,000 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ค่าบริการต่อ ชม. *</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">3,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">2,400 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ส่วนเกิน ชม.ละ **</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">3,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">2,400 บาท</td>
+                                </tr>
+                            </tbody>
+                            <thead>
+                                <tr class="table-primary">
+                                    <th style="width: 60%;text-align: center;">อัตราค่าบริการห้อง-วันหยุด</th>
+                                    <th style="text-align: center;">รัชดา</th>
+                                    <th style="text-align: center;">ราคาโปรโมชั่น</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>เต็มวัน</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">22,500 บาท</td>
+                                    <td style="text-align: center;color:#f00;">14,000 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ครึ่งวัน</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">12,500 บาท</td>
+                                    <td style="text-align: center;color:#f00;">8,000 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ส่วนเกิน ชม.ละ **</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">3,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">2,400 บาท</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    <!-- รัชดา -->
+                    <!-- สาทร -->
+                        <table class="table table-sm table-bordered" style="font-size: 9px;" *ngIf="databookbyid.RoomId == 3">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th style="width: 60%;text-align: center;">อัตราค่าบริการห้อง-วันทำการ</th>
+                                    <th style="text-align: center;">สาทร</th>
+                                    <th style="text-align: center;">ราคาโปรโมชั่น</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>เต็มวัน</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">15,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">12,000 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ครึ่งวัน</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">8,500 บาท</td>
+                                    <td style="text-align: center;color:#f00;">6,800 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ค่าบริการต่อ ชม. *</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">2,500 บาท</td>
+                                    <td style="text-align: center;color:#f00;">2,000 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ส่วนเกิน ชม.ละ **</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">2,500 บาท</td>
+                                    <td style="text-align: center;color:#f00;">2,000 บาท</td>
+                                </tr>
+                            </tbody>
+                            <thead>
+                                <tr class="table-primary">
+                                    <th style="width: 60%;text-align: center;">อัตราค่าบริการห้อง-วันหยุด</th>
+                                    <th style="text-align: center;">สาทร</th>
+                                    <th style="text-align: center;">ราคาโปรโมชั่น</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>เต็มวัน</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">19,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">12,000 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ครึ่งวัน</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">11,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">6,800 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ส่วนเกิน ชม.ละ **</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">2,500 บาท</td>
+                                    <td style="text-align: center;color:#f00;">2,000 บาท</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    <!-- สาทร -->
+                    <!-- ราชวงศ์ -->
+                        <table class="table table-sm table-bordered" style="font-size: 9px;" *ngIf="databookbyid.RoomId == 4">
+                            <thead>
+                                <tr class="table-primary">
+                                    <th style="width: 60%;text-align: center;">อัตราค่าบริการห้อง-วันทำการ</th>
+                                    <th style="text-align: center;">ราชวงค์</th>
+                                    <th style="text-align: center;">ราคาโปรโมชั่น</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>เต็มวัน</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">6,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">5,400 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ครึ่งวัน</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">3,500 บาท</td>
+                                    <td style="text-align: center;color:#f00;">3,200 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ค่าบริการต่อ ชม. *</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">1,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">900 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ส่วนเกิน ชม.ละ **</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">1,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">900 บาท</td>
+                                </tr>
+                            </tbody>
+                            <thead>
+                                <tr class="table-primary">
+                                    <th style="width: 60%;text-align: center;">อัตราค่าบริการห้อง-วันหยุด</th>
+                                    <th style="text-align: center;">ราชวงค์</th>
+                                    <th style="text-align: center;">ราคาโปรโมชั่น</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th>เต็มวัน</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">7,500 บาท</td>
+                                    <td style="text-align: center;color:#f00;">5,400 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ครึ่งวัน</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">4,500 บาท</td>
+                                    <td style="text-align: center;color:#f00;">3,200 บาท</td>
+                                </tr>
+                                <tr>
+                                    <th>ส่วนเกิน ชม.ละ **</th>
+                                    <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">1,000 บาท</td>
+                                    <td style="text-align: center;color:#f00;">900 บาท</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    <div style="font-size: 9px;margin-top: -10px; margin-bottom: 10px;">
+                        <b>*ขั้นต่ำ 2 ชม.</b><br>
+                        <b>**เศษของชม.คิดเป็น 1 ชม.</b><br>
+                        <b>อัตราค่าบริการยังไม่รวม VAT</b>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-sm-6">
+                    เวลาสิ้นสุดการใช้ห้อง : ...........................................................................................................
+                </div>
+                <div class="col-sm-6">
+                    ลายเซ็นลูกค้ารับทราบ : ...........................................................................................................
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

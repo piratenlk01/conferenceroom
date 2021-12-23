@@ -1,0 +1,40 @@
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-lg-2">
+                <b>วันที่</b><br>
+                <input type="date" [(ngModel)]="DateStart" class="form-control " name="StartDate" placeholder="DD/MM/YYYY" autocomplete=off>
+            </div>
+            <div class="col-lg-2">
+                <b>ถึงวันที่</b><br>
+                <input type="date" [(ngModel)]="DateEnd" class="form-control " name="DateTo" placeholder="DD/MM/YYYY" autocomplete=off>
+            </div>
+            <div class="col-lg-2">
+                <br><button type="submit" class="btn btn-info btn-sm btn-block" (click)="selectChart()"><b>SEARCH</b></button>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5 justify-content-lg-center">
+        <div class="col-lg-2 col-md-6 col-sm-12">
+            <div class="card">
+                <div class="card-header" [ngStyle]="{'background-color':customerTypemodel.Color}">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <div class="h4"><strong>{{customerTypemodel.Description}}</strong></div>
+                            <div class="h2"><strong>{{customerTypemodel.Total}}</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-3 mb-5 justify-content-lg-center">
+        
+        <div class="col-lg-6">
+            <div class="text-center">
+                <h3>{{doughnutChart.Title}}</h3>
+                <p-chart type="pie" [data]="doughnutChart.DoughnutChart"></p-chart>
+            </div>
+        </div>
+    </div>
+</div>

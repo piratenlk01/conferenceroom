@@ -1,0 +1,245 @@
+{
+    "data":[
+        {
+            "Id": 1,
+            "RoomName": "ห้องทรงวาด",
+            "Description": null,
+            "TotalPerson": 15,
+            "Option": [
+              {
+                "Destination": null,
+                "Id": 3,
+                "Description": "Tele Conference  (1,000 บ/วัน, 700 บ/ครึ่งวัน)"
+              },
+              {
+                "Destination": null,
+                "Id": 6,
+                "Description": "Monitor ขนาด 43 นิ้ว  (500 บ/วัน, 300 บ/ครึ่งวัน)"
+              },
+              {
+                "Destination": null,
+                "Id": 10,
+                "Description": "ไมค์ลอย และ ไมค์หนีบ จำนวน 1 คู่  (500 บ/วัน, 300 บ/ครึ่งวัน)"
+              },
+              {
+                "Destination": null,
+                "Id": 11,
+                "Description": "ไมค์ลอย จำนวน 1 คู่  (500 บ/วัน, 300 บ/ครึ่งวัน)"
+              }
+            ],
+            "OptionRoom": [
+              {
+                "Destination": null,
+                "Id": 2,
+                "Description": "กระดานไวท์บอร์ด"
+              },
+              {
+                "Destination": null,
+                "Id": 4,
+                "Description": "Wifi รองรับทั่วพื้นที่"
+              },
+              {
+                "Destination": null,
+                "Id": 5,
+                "Description": "Laser Pointer 1 ชุด"
+              },
+              {
+                "Destination": null,
+                "Id": 7,
+                "Description": "Projecter และจอ ขนาด 120 นิ้ว 1 ชุด "
+              },
+              {
+                "Destination": null,
+                "Id": 9,
+                "Description": "ระบบเครื่องเสียง"
+              },
+              {
+                "Destination": null,
+                "Id": 18,
+                "Description": "น้ำดื่มท่านละ 1 ขวด"
+              }
+            ]
+        },
+        {
+                "Id": 2,
+                "RoomName": "ห้องรัชดา",
+                "Description": null,
+                "TotalPerson": 100,
+                "Option": [
+                    {
+                        "Destination": null,
+                        "Id": 11,
+                        "Description": "ไมค์ลอย จำนวน 1 คู่  (500 บ/วัน, 300 บ/ครึ่งวัน)"
+                    },
+                    {
+                        "Destination": null,
+                        "Id": 14,
+                        "Description": "Projecter และจอ ขนาด 100 นิ้ว  ชุดที่ 2 (บริเวณหน้าด้านซ้าย)  (500 บ/วัน, 300 บ/ครึ่งวัน)"
+                    },
+                    {
+                        "Destination": null,
+                        "Id": 15,
+                        "Description": "Projecter และจอ ขนาด 100 นิ้ว  ชุดที่ 3 (บริเวณหน้าด้านขวา)  (500 บ/วัน, 300 บ/ครึ่งวัน)"
+                    },
+                    {
+                        "Destination": null,
+                        "Id": 16,
+                        "Description": "Projecter และจอ ขนาด 120 นิ้ว  ชุดที่ 4 (บริเวณแถวหลังด้านซ้าย)  (500 บ/วัน, 300 บ/ครึ่งวัน)"
+                    },
+                    {
+                        "Destination": null,
+                        "Id": 17,
+                        "Description": "Projecter และจอ ขนาด 120 นิ้ว  ชุดที่ 5 (บริเวณแถวหลังด้านขวา)   (500 บ/วัน, 300 บ/ครึ่งวัน)"
+                    }
+                ],
+                "OptionRoom": [
+                    {
+                        "Destination": null,
+                        "Id": 4,
+                        "Description": "Wifi รองรับทั่วพื้นที่"
+                    },
+                    {
+                        "Destination": null,
+                        "Id": 5,
+                        "Description": "Laser Pointer 1 ชุด"
+                    },
+                    {
+                        "Destination": null,
+                        "Id": 9,
+                        "Description": "ระบบเครื่องเสียง"
+                    },
+                    {
+                        "Destination": null,
+                        "Id": 10,
+                        "Description": "ไมค์ลอย และ ไมค์หนีบ จำนวน 1 คู่"
+                    },
+                    {
+                        "Destination": null,
+                        "Id": 13,
+                        "Description": "Projecter และจอ ขนาด 150 นิ้ว 1 ชุด "
+                    },
+                    {
+                        "Destination": null,
+                        "Id": 18,
+                        "Description": "น้ำดื่มท่านละ 1 ขวด"
+                    }
+                ]
+            
+        },
+        {
+            "Id": 3,
+            "RoomName": "ห้องสาทร",
+            "Description": null,
+            "TotalPerson": 45,
+            "Option": [
+                {
+                    "Destination": null,
+                    "Id": 3,
+                    "Description": "Tele Conference  (1,000 บ/วัน, 700 บ/ครึ่งวัน)"
+                },
+                {
+                    "Destination": null,
+                    "Id": 6,
+                    "Description": "Monitor ขนาด 43 นิ้ว  (500 บ/วัน, 300 บ/ครึ่งวัน)"
+                },
+                {
+                    "Destination": null,
+                    "Id": 10,
+                    "Description": "ไมค์ลอย และ ไมค์หนีบ จำนวน 1 คู่  (500 บ/วัน, 300 บ/ครึ่งวัน)"
+                },
+                {
+                    "Destination": null,
+                    "Id": 11,
+                    "Description": "ไมค์ลอย จำนวน 1 คู่  (500 บ/วัน, 300 บ/ครึ่งวัน)"
+                },
+                {
+                    "Destination": null,
+                    "Id": 12,
+                    "Description": "Projecter และจอ  ขนาด 100 นิ้ว ชุดที่ 2   (500 บ/วัน, 300 บ/ครึ่งวัน)"
+                }
+            ],
+            "OptionRoom": [
+                {
+                    "Destination": null,
+                    "Id": 2,
+                    "Description": "กระดานไวท์บอร์ด"
+                },
+                {
+                    "Destination": null,
+                    "Id": 4,
+                    "Description": "Wifi รองรับทั่วพื้นที่"
+                },
+                {
+                    "Destination": null,
+                    "Id": 5,
+                    "Description": "Laser Pointer 1 ชุด"
+                },
+                {
+                    "Destination": null,
+                    "Id": 7,
+                    "Description": "Projecter และจอ ขนาด 120 นิ้ว 1 ชุด "
+                },
+                {
+                    "Destination": null,
+                    "Id": 8,
+                    "Description": "ระบบไมค์ประชุมแบบตั้งโต๊ะ 15 ชุด"
+                },
+                {
+                    "Destination": null,
+                    "Id": 9,
+                    "Description": "ระบบเครื่องเสียง"
+                },
+                {
+                    "Destination": null,
+                    "Id": 18,
+                    "Description": "น้ำดื่มท่านละ 1 ขวด"
+                }
+            ]
+        },
+        {
+            "Id": 4,
+            "RoomName": "ห้องราชวงศ์",
+            "Description": null,
+            "TotalPerson": 10,
+            "Option": [
+                {
+                    "Destination": null,
+                    "Id": 3,
+                    "Description": "Tele Conference  (1,000 บ/วัน, 700 บ/ครึ่งวัน)"
+                },
+                {
+                    "Destination": null,
+                    "Id": 6,
+                    "Description": "Monitor ขนาด 43 นิ้ว  (500 บ/วัน, 300 บ/ครึ่งวัน)"
+                }
+            ],
+            "OptionRoom": [
+                {
+                    "Destination": null,
+                    "Id": 1,
+                    "Description": "Projecter และจอ  ขนาด 100 นิ้ว 1 ชุด"
+                },
+                {
+                    "Destination": null,
+                    "Id": 2,
+                    "Description": "กระดานไวท์บอร์ด"
+                },
+                {
+                    "Destination": null,
+                    "Id": 4,
+                    "Description": "Wifi รองรับทั่วพื้นที่"
+                },
+                {
+                    "Destination": null,
+                    "Id": 5,
+                    "Description": "Laser Pointer 1 ชุด"
+                },
+                {
+                    "Destination": null,
+                    "Id": 18,
+                    "Description": "น้ำดื่มท่านละ 1 ขวด"
+                }
+            ]
+        }
+    ]
+}

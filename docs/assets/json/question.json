@@ -1,0 +1,267 @@
+{
+    "data":[
+        {
+            "GroupId": 1,
+            "GroupDescription": "บรรยากาศภายนอกห้องประชุม",
+            "Question": [
+            {
+                "Id": 1,
+                "Description": "ความสะดวกสบายของการมาใช้บริการ",
+                "OrderNo": 1,
+                "Child": [],
+                "Score": 0,
+                "Score5": 0,
+                "Score4": 0,
+                "Score3": 0,
+                "Score2": 0,
+                "Score1": 0,
+                "Avg": 0,
+                "AvgDescription": null
+            },
+            {
+                "Id": 2,
+                "Description": "ความสะอาด และเป็นระเบียบ",
+                "OrderNo": 2,
+                "Child": [],
+                "Score": 0,
+                "Score5": 0,
+                "Score4": 0,
+                "Score3": 0,
+                "Score2": 0,
+                "Score1": 0,
+                "Avg": 0,
+                "AvgDescription": null
+            },
+            {
+                "Id": 3,
+                "Description": "ความสว่างของแสงไฟ",
+                "OrderNo": 3,
+                "Child": [],
+                "Score": 0,
+                "Score5": 0,
+                "Score4": 0,
+                "Score3": 0,
+                "Score2": 0,
+                "Score1": 0,
+                "Avg": 0,
+                "AvgDescription": null
+            },
+            {
+                "Id": 4,
+                "Description": "ความชัดเจนของป้ายบอก แจ้ง ในเรื่องต่างๆ ",
+                "OrderNo": 4,
+                "Child": [],
+                "Score": 0,
+                "Score5": 0,
+                "Score4": 0,
+                "Score3": 0,
+                "Score2": 0,
+                "Score1": 0,
+                "Avg": 0,
+                "AvgDescription": null
+            }
+            ]
+        },
+        {
+            "GroupId": 2,
+            "GroupDescription": "ภายในห้องประชุม",
+            "Question": [
+            {
+                "Id": 5,
+                "Description": "ความพึงพอใจรวมของการมาใช้บริการห้องประชุม",
+                "OrderNo": 1,
+                "Child": [],
+                "Score": 0,
+                "Score5": 0,
+                "Score4": 0,
+                "Score3": 0,
+                "Score2": 0,
+                "Score1": 0,
+                "Avg": 0,
+                "AvgDescription": null
+            },
+            {
+                "Id": 6,
+                "Description": "บรรยากาศภายในห้องประชุม",
+                "OrderNo": 2,
+                "Child": [],
+                "Score": 0,
+                "Score5": 0,
+                "Score4": 0,
+                "Score3": 0,
+                "Score2": 0,
+                "Score1": 0,
+                "Avg": 0,
+                "AvgDescription": null
+            },
+            {
+                "Id": 7,
+                "Description": "ความสะอาด และเป็นระเบียบภายในห้องประชุม",
+                "OrderNo": 3,
+                "Child": [],
+                "Score": 0,
+                "Score5": 0,
+                "Score4": 0,
+                "Score3": 0,
+                "Score2": 0,
+                "Score1": 0,
+                "Avg": 0,
+                "AvgDescription": null
+            },
+            {
+                "Id": 8,
+                "Description": "ความสว่างของแสงไฟในห้องประชุม",
+                "OrderNo": 4,
+                "Child": [],
+                "Score": 0,
+                "Score5": 0,
+                "Score4": 0,
+                "Score3": 0,
+                "Score2": 0,
+                "Score1": 0,
+                "Avg": 0,
+                "AvgDescription": null
+            },
+            {
+                "Id": 15,
+                "Description": "ระบบเสียงในห้องประชุม",
+                "OrderNo": 5,
+                "Child": [],
+                "Score": 0,
+                "Score5": 0,
+                "Score4": 0,
+                "Score3": 0,
+                "Score2": 0,
+                "Score1": 0,
+                "Avg": 0,
+                "AvgDescription": null
+            }
+            ]
+        },
+        {
+            "GroupId": 3,
+            "GroupDescription": "อุปกรณ์ต่างๆภายในห้องประชุม",
+            "Question": [
+            {
+                "Id": 10,
+                "Description": "Projector",
+                "OrderNo": 1,
+                "Child": [],
+                "Score": 0,
+                "Score5": 0,
+                "Score4": 0,
+                "Score3": 0,
+                "Score2": 0,
+                "Score1": 0,
+                "Avg": 0,
+                "AvgDescription": null
+            },
+            {
+                "Id": 11,
+                "Description": "Whiteboard",
+                "OrderNo": 2,
+                "Child": [],
+                "Score": 0,
+                "Score5": 0,
+                "Score4": 0,
+                "Score3": 0,
+                "Score2": 0,
+                "Score1": 0,
+                "Avg": 0,
+                "AvgDescription": null
+            },
+            {
+                "Id": 12,
+                "Description": "Teleconference",
+                "OrderNo": 3,
+                "Child": [],
+                "Score": 0,
+                "Score5": 0,
+                "Score4": 0,
+                "Score3": 0,
+                "Score2": 0,
+                "Score1": 0,
+                "Avg": 0,
+                "AvgDescription": null
+            },
+            {
+                "Id": 13,
+                "Description": "Furniture",
+                "OrderNo": 4,
+                "Child": [],
+                "Score": 0,
+                "Score5": 0,
+                "Score4": 0,
+                "Score3": 0,
+                "Score2": 0,
+                "Score1": 0,
+                "Avg": 0,
+                "AvgDescription": null
+            },
+            {
+                "Id": 14,
+                "Description": "เครื่องปรับอากาศ",
+                "OrderNo": 5,
+                "Child": [],
+                "Score": 0,
+                "Score5": 0,
+                "Score4": 0,
+                "Score3": 0,
+                "Score2": 0,
+                "Score1": 0,
+                "Avg": 0,
+                "AvgDescription": null
+            }
+            ]
+        },
+        {
+            "GroupId": 4,
+            "GroupDescription": "ห้องน้ำ",
+            "Question": [
+            {
+                "Id": 16,
+                "Description": "ความสะอาด และเป็นระเบียบภายในห้องน้ำ",
+                "OrderNo": 1,
+                "Child": [],
+                "Score": 0,
+                "Score5": 0,
+                "Score4": 0,
+                "Score3": 0,
+                "Score2": 0,
+                "Score1": 0,
+                "Avg": 0,
+                "AvgDescription": null
+            },
+            {
+                "Id": 17,
+                "Description": "สิ่งอำนวยความสะดวกในห้องน้ำ",
+                "OrderNo": 2,
+                "Child": [],
+                "Score": 0,
+                "Score5": 0,
+                "Score4": 0,
+                "Score3": 0,
+                "Score2": 0,
+                "Score1": 0,
+                "Avg": 0,
+                "AvgDescription": null
+            },
+            {
+                "Id": 18,
+                "Description": "กลิ่นในห้องน้ำ",
+                "OrderNo": 3,
+                "Child": [],
+                "Score": 0,
+                "Score5": 0,
+                "Score4": 0,
+                "Score3": 0,
+                "Score2": 0,
+                "Score1": 0,
+                "Avg": 0,
+                "AvgDescription": null
+            }
+            ]
+        }
+    ]
+    
+}   

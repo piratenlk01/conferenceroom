@@ -1,0 +1,300 @@
+<p-blockUI [blocked]="blocked">
+    <i class="fas pi-spin fa-spinner" style="font-size: 5rem"></i>
+</p-blockUI>
+<div class="container bodysurvey" id="pjsurvey">
+    <div class="row" style="margin-bottom: 5rem;">
+        <div class="col-12 mt-4">
+            <div class="d-flex justify-content-center">
+                <h5 class="text-center" ><b>แบบประเมินความพึงพอใจการใช้ห้องประชุม</b></h5>
+            </div>
+
+            <form-wizard style="height:100%" txtBtnNext="ถัดไป" txtBtnPrevious="ย้อนกลับ" txtBtnDone="ส่งแบบประเมิน" [styleDisplayVisabledBtbDone]='BtbDone_insertsuccess'>
+                <wizard-step [title]="'1'" [isValid]="Form1.form.valid" (onNext)="onNext(1)">
+                    <form #Form1="ngForm">
+                        <div class="pt-5 px-2" style="padding-bottom: 4.5rem!important;">
+                            <div class="form-group">
+                                <label><b>ห้องประชุมที่ท่านใช้บริการ</b></label>
+                                <select [(ngModel)]="insertsurvey.RoomId" class="form-select" name="roomname" aria-label="Default select example" required>
+                                    <option value="0" selected disabled>---- เลือกห้องประชุม ----</option>
+                                    <option *ngFor="let item of dropdownroomtype" [value]="item.id">{{item.text}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label><b>วันที่ใช้บริการ</b></label>
+                                <input [(ngModel)]="datestart" class="form form-control" name="datestart" type="date" required>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label><b>เวลา</b></label>
+                                <div>
+                                    <p-calendar [(ngModel)]="timestart" [timeOnly]="true" inputId="timeonly" 
+                                     name="timestart" placeholder="กรอกเวลา" required></p-calendar>
+                                </div>
+                                <!-- <input [(ngModel)]="timestart" class="form form-control" name="timestart" type="time" required> -->
+                                <!-- <select [(ngModel)]="timestart" class="form form-control" name="timestart" type="time" required>
+                                    <option value="0" disabled selected>---- เลือช่วงเวลา ----</option>
+                                    <option value="1">08.00 - 12.00 (ช่วงเช้า)</option>
+                                    <option value="2">13.00 - 17.00 (ช่วงบ่าย)</option>
+                                    <option value="3">08.00 - 17.00 (เต็มวัน)</option>
+                                </select> -->
+                            </div>
+                            <div class="form-group mt-3">
+                                <div class=""><b>เพศ</b></div>
+                                <div class="form-check form-check-inline">
+                                    <input [(ngModel)]="insertsurvey.Gender" class="form-check-input" type="radio" name="sex" id="sex1" style="margin-left:20px;" value="M" required>
+                                    <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                        ชาย
+                                    </label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input [(ngModel)]="insertsurvey.Gender" class="form-check-input" type="radio" name="sex" id="sex2" style="margin-left:20px;" value="F" required>
+                                    <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                        หญิง
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </wizard-step>
+                <wizard-step [title]="'2'" [isValid]="Form2.form.valid" (onNext)="onNext()">
+                    <form #Form2="ngForm">
+                        <div class="pt-5 pb-4 px-2">
+                            <h4><b>{{quetion1.GroupDescription}}</b></h4>
+                            <div class="table-responsive" *ngFor="let item of quetion1.Question  ; let ii = index" style="margin-bottom: -16px;">
+                                    <table class="table">
+                                        <thead>
+                                            <tr class="table-primary">
+                                                <th style="width:100%">
+                                                    {{ii+1}}.{{item.Description}} 
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="form-group-row">
+                                                        <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey1[ii].Score" name="{{insertsurvey1[ii].Id}}"  id="5" style="margin-left:20px;" value="5" (click)="selectValue($event,item.Id)" required>
+                                                        <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                                ดีมาก
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group-row">
+                                                        <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey1[ii].Score" name="{{insertsurvey1[ii].Id}}"  id="4" style="margin-left:20px;" value="4" (click)="selectValue($event,item.Id)" required>
+                                                        <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                                ดี
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group-row">
+                                                        <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey1[ii].Score" name="{{insertsurvey1[ii].Id}}"  id="3" style="margin-left:20px;" value="3" (click)="selectValue($event,item.Id)" required>
+                                                        <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                                ปานกลาง
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group-row">
+                                                        <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey1[ii].Score" name="{{insertsurvey1[ii].Id}}"  id="2" style="margin-left:20px;" value="2" (click)="selectValue($event,item.Id)" required>
+                                                        <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                                น้อย
+                                                        </label>
+                                                    </div>
+                                                    <div class="form-group-row">
+                                                        <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey1[ii].Score" name="{{insertsurvey1[ii].Id}}"  id="1" style="margin-left:20px;" value="1" (click)="selectValue($event,item.Id)" required>
+                                                        <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                                น้อยมาก
+                                                        </label>
+                                                    </div>
+                                                </td>
+                                            </tr> 
+                                        </tbody>
+                                    </table>
+                            </div>
+                        </div>
+                    </form>
+                </wizard-step>
+                <wizard-step [title]="'3'" [isValid]="Form3.form.valid" (onNext)="onNext()">     
+                    <form #Form3="ngForm">
+                        <div class="pt-5 pb-4 px-2">
+                            <h4><b>{{quetion2.GroupDescription}}</b></h4>
+                            <div class="table-responsive" *ngFor="let item of quetion2.Question  ; let ii = index" style="margin-bottom: -16px;">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="table-primary">
+                                            <th style="width:100%">
+                                                {{ii+1}}.{{item.Description}} 
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="form-group-row">
+                                                    <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey2[ii].Score" name="{{insertsurvey2[ii].Id}}"  id="5" style="margin-left:20px;" value="5" (click)="selectValue($event,item.Id)" required>
+                                                    <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                            ดีมาก
+                                                    </label>
+                                                </div>
+                                                <div class="form-group-row">
+                                                    <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey2[ii].Score" name="{{insertsurvey2[ii].Id}}"  id="4" style="margin-left:20px;" value="4" (click)="selectValue($event,item.Id)" required>
+                                                    <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                            ดี
+                                                    </label>
+                                                </div>
+                                                <div class="form-group-row">
+                                                    <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey2[ii].Score" name="{{insertsurvey2[ii].Id}}"  id="3" style="margin-left:20px;" value="3" (click)="selectValue($event,item.Id)" required>
+                                                    <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                            ปานกลาง
+                                                    </label>
+                                                </div>
+                                                <div class="form-group-row">
+                                                    <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey2[ii].Score" name="{{insertsurvey2[ii].Id}}"  id="2" style="margin-left:20px;" value="2" (click)="selectValue($event,item.Id)" required>
+                                                    <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                            น้อย
+                                                    </label>
+                                                </div>
+                                                <div class="form-group-row">
+                                                    <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey2[ii].Score" name="{{insertsurvey2[ii].Id}}"  id="1" style="margin-left:20px;" value="1" (click)="selectValue($event,item.Id)" required>
+                                                    <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                            น้อยมาก
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr> 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </wizard-step>
+                <wizard-step [title]="'4'" [isValid]="Form4.form.valid" (onNext)="onNext()">
+                    <form #Form4="ngForm">
+                        <div class="pt-5 pb-4 px-2">
+                            <h4><b>{{quetion3.GroupDescription}}</b></h4>
+                            <div class="table-responsive" *ngFor="let item of quetion3.Question  ; let ii = index" style="margin-bottom: -16px;">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="table-primary">
+                                            <th style="width:100%">
+                                                {{ii+1}}.{{item.Description}} 
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="form-group-row">
+                                                    <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey3[ii].Score" name="{{insertsurvey3[ii].Id}}"  id="5" style="margin-left:20px;" value="5" (click)="selectValue($event,item.Id)" required>
+                                                    <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                            ดีมาก
+                                                    </label>
+                                                </div>
+                                                <div class="form-group-row">
+                                                    <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey3[ii].Score" name="{{insertsurvey3[ii].Id}}"  id="4" style="margin-left:20px;" value="4" (click)="selectValue($event,item.Id)" required>
+                                                    <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                            ดี
+                                                    </label>
+                                                </div>
+                                                <div class="form-group-row">
+                                                    <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey3[ii].Score" name="{{insertsurvey3[ii].Id}}"  id="3" style="margin-left:20px;" value="3" (click)="selectValue($event,item.Id)" required>
+                                                    <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                            ปานกลาง
+                                                    </label>
+                                                </div>
+                                                <div class="form-group-row">
+                                                    <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey3[ii].Score" name="{{insertsurvey3[ii].Id}}"  id="2" style="margin-left:20px;" value="2" (click)="selectValue($event,item.Id)" required>
+                                                    <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                            น้อย
+                                                    </label>
+                                                </div>
+                                                <div class="form-group-row">
+                                                    <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey3[ii].Score" name="{{insertsurvey3[ii].Id}}"  id="1" style="margin-left:20px;" value="1" (click)="selectValue($event,item.Id)" required>
+                                                    <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                            น้อยมาก
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr> 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </wizard-step>
+                <wizard-step [title]="'5'" [isValid]="Form5.form.valid" (onNext)="onNext()">
+                    <form #Form5="ngForm">
+                        <div class="pt-5 pb-4 px-2">
+                            <h4><b>{{quetion4.GroupDescription}}</b></h4>
+                            <div class="table-responsive" *ngFor="let item of quetion4.Question  ; let ii = index" style="margin-bottom: -16px;">
+                                <table class="table">
+                                    <thead>
+                                        <tr class="table-primary">
+                                            <th style="width:100%">
+                                                {{ii+1}}.{{item.Description}} 
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <div class="form-group-row">
+                                                    <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey4[ii].Score" name="{{insertsurvey4[ii].Id}}"  id="5" style="margin-left:20px;" value="5" (click)="selectValue($event,item.Id)" required>
+                                                    <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                            ดีมาก
+                                                    </label>
+                                                </div>
+                                                <div class="form-group-row">
+                                                    <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey4[ii].Score" name="{{insertsurvey4[ii].Id}}"  id="4" style="margin-left:20px;" value="4" (click)="selectValue($event,item.Id)" required>
+                                                    <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                            ดี
+                                                    </label>
+                                                </div>
+                                                <div class="form-group-row">
+                                                    <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey4[ii].Score" name="{{insertsurvey4[ii].Id}}"  id="3" style="margin-left:20px;" value="3" (click)="selectValue($event,item.Id)" required>
+                                                    <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                            ปานกลาง
+                                                    </label>
+                                                </div>
+                                                <div class="form-group-row">
+                                                    <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey4[ii].Score" name="{{insertsurvey4[ii].Id}}"  id="2" style="margin-left:20px;" value="2" (click)="selectValue($event,item.Id)" required>
+                                                    <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                            น้อย
+                                                    </label>
+                                                </div>
+                                                <div class="form-group-row">
+                                                    <input class="form-check-input" type="radio" [(ngModel)]="insertsurvey4[ii].Score" name="{{insertsurvey4[ii].Id}}"  id="1" style="margin-left:20px;" value="1" (click)="selectValue($event,item.Id)" required>
+                                                    <label class="form-check-label" for="autoSizingCheck2" style="margin-left:20px;">
+                                                            น้อยมาก
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr> 
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </wizard-step>
+                <wizard-step [title]="'6'" (onComplete)="onComplete($event)">
+                    <div class="pt-5 pb-4 px-2">
+                        <div [ngSwitch]="isCompleted">
+                            <div *ngSwitchDefault>
+                                    <div class="form-group">
+                                        <label><b>ข้อเสนอแนะ</b></label>
+                                        <!-- <input [(ngModel)]="insertsurvey.Remark" class="form-control" type="text-area" name="remark" id="remark" placeholder="ข้อเสนอแนะ"> -->
+                                        <textarea [(ngModel)]="insertsurvey.Remark" class="form-control" name="remark" id="remark" rows="5" placeholder="ข้อเสนอแนะ"></textarea>
+                                        
+                                        <p-messages [(value)]="msgerror"></p-messages>
+                                    </div>
+                            </div>
+                            <div *ngSwitchCase="true">
+                                <div class="text-center" >
+                                    <p-messages [(value)]="msgsuccess" ></p-messages>
+                                    <img src="../../assets/thank-you.png" alt="">
+                                    <br>
+                                    <button class="fa fa-home  btn btn-primary" [routerLink]="['']"><i class="fas fa-home"></i> กลับหน้าหลัก</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </wizard-step>
+            </form-wizard>
+        </div>
+    </div>
+</div>

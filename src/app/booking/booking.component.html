@@ -1,0 +1,403 @@
+<header class="site-header scrolled">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-6 col-lg-4 site-logo form-inline">
+          <div class="heading" data-aos="fade"><a class="nav-link" [routerLink]="['']"><span class="fa fa-home text-primary"></span><b> HOME</b></a></div>
+          &nbsp; &nbsp; &nbsp; &nbsp;
+          <div class="heading"  data-aos="fade"><a class="nav-link" href="" (click)="goBack($event)"><span class="fas fa-arrow-circle-left text-primary"></span><b> BACK</b></a></div>
+        </div>
+      </div>
+    </div>
+</header>
+<section style="background-color:#FFFFFF;padding-bottom: 70px;padding-top: 90px;">
+    <div class="container" [formGroup]="Bookingform">
+        <h1>จองห้อง</h1>
+        <div class="row mb-2">
+            <div class="form-group col-lg-6">
+                <label><b>ชื่อห้อง</b><b style="color:#FF0000">*</b></label>
+                <input [(ngModel)]="roomviewmodel.RoomName" [ngModelOptions]="{standalone: true}" type="text" class="form-control" name="RoomName" placeholder="ชื่อห้อง" disabled>
+            </div>
+            <div class="form-group col-lg-6">
+                <label><b>วัตถุประสงค์ในการจอง</b><b style="color:#FF0000">*</b></label>
+                <input formControlName="Purpose" type="text" class="form-control" placeholder="วัตถุประสงค์ในการจอง" autocomplete=off
+                [ngClass]="{ 'is-invalid': purpose.errors?.required && purpose.touched}" required>
+                <div class="invalid-feedback">
+                    <span style="color:#FF3434" *ngIf="purpose.errors?.required && purpose.touched">กรุณากรอกวัตถุประสงค์ในการจอง</span>
+                </div>
+                <!-- <small style="color:#FF3434" *ngIf="this.isActiveConferenceTypeId == true">กรุณากรอกวัตถุประสงค์ในการจอง</small> -->
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="form-group col-lg-6">
+                <label><b>วันที่ใช้ห้องประชุม </b><b style="color:#FF0000">*</b></label><br>
+                <input formControlName="DateBook" type="date" class="form-control" [min]="minDate" autocomplete=off name="datestart"
+                [ngClass]="{ 'is-invalid': datebook.errors?.required && datebook.touched}" required>
+                <small class="text-muted">Ex. dd/mm/yyyy</small>
+                <div class="invalid-feedback">
+                    <span style="color:#FF3434" *ngIf="datebook.errors?.required && datebook.touched">กรุณาเลือกวันที่ใช้ห้องประชุม</span>
+                </div>
+            </div>
+            <div class="form-group col-lg-6">
+                <label><b>ช่วงเวลา </b><b style="color:#FF0000">*</b></label><br>
+                <select formControlName="TimeBook" class="form-select" style="font-size: 16px;" name="timestart"
+                [ngClass]="{ 'is-invalid': timebook.value == '0' && timebook.touched}" required>
+                  <option value="0">----กรุณาเลือช่วงเวลา----</option>
+                  <option value="1">08.00 - 12.00 (ช่วงเช้า)</option>
+                  <option value="2">13.00 - 17.00 (ช่วงบ่าย)</option>
+                  <option value="3">08.00 - 17.00 (เต็มวัน)</option>
+                </select>
+                <div class="invalid-feedback">
+                    <span style="color:#FF3434" *ngIf="timebook.value == '0' && timebook.touched">กรุณาเลือกช่วงเวลา</span>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="form-group col-lg-6">
+                <label><b>ชื่อผู้จอง </b><b style="color:#FF0000">*</b></label>
+                <input type="text" formControlName="BookBy" class="form-control" placeholder="ชื่อผู้จอง" autocomplete=off
+                [ngClass]="{ 'is-invalid': bookby.errors?.required && bookby.touched}" required>
+                <div class="invalid-feedback">
+                    <span style="color:#FF3434" *ngIf="bookby.errors?.required && bookby.touched">กรุณากรอกชื่อผู้จอง</span>
+                </div>
+                <!-- <small style="color:#FF3434;font-size: 90%;" *ngIf="this.isActiveBookBy == true">กรุณากรอกชื่อผู้จอง</small> -->
+            </div>
+            <div class="form-group col-lg-6">
+                <label><b>แผนก/ฝ่าย</b><b style="color:#FF0000">*</b></label>
+                <input type="text" formControlName="BookDepartment" class="form-control" placeholder="แผนก" autocomplete=off
+                [ngClass]="{ 'is-invalid': bookdepartment.errors?.required && bookdepartment.touched}" required>
+                <div class="invalid-feedback">
+                    <span style="color:#FF3434" *ngIf="bookdepartment.errors?.required && bookdepartment.touched">กรุณากรอกแผนก</span>
+                </div>
+                <!-- <small style="color:#FF3434;font-size: 90%;" *ngIf="this.isActiveDepartment == true">กรุณากรอกแผนก</small> -->
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="form-group col-lg-6">
+                <label><b>ชื่อบริษัท</b><b style="color:#FF0000">*</b></label>
+                <input type="text" formControlName="BookCompany" class="form-control" placeholder="ชื่อบริษัท" autocomplete=off
+                [ngClass]="{ 'is-invalid': bookcompany.errors?.required && bookcompany.touched}" required>
+                <div class="invalid-feedback">
+                    <span style="color:#FF3434" *ngIf="bookcompany.errors?.required && bookcompany.touched">กรุณากรอกชื่อบริษัท</span>
+                </div>
+                <!-- <small style="color:#FF3434;font-size: 90%;" *ngIf="this.isActiveCompany == true">กรุณากรอกชื่อบริษัท</small> -->
+            </div>
+            <div class="form-group col-lg-6">
+                <label><b>ที่อยู่บริษัท</b><b style="color:#FF0000">*</b></label>
+                <input type="text" formControlName="AddressNo" class="form-control" placeholder="ที่อยู่บริษัท" autocomplete=off
+                [ngClass]="{ 'is-invalid': addressno.errors?.required && addressno.touched}" required>
+                <div class="invalid-feedback">
+                    <span style="color:#FF3434" *ngIf="addressno.errors?.required && addressno.touched">กรุณากรอกที่อยู่บริษัท</span>
+                </div>
+                <!-- <small style="color:#FF3434;font-size: 90%;" *ngIf="this.isActiveAddressNo == true">กรุณากรอกที่อยู่บริษัท</small> -->
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="form-group col-lg-6">
+                <label><b>เบอร์โทรศัพท์ที่ติดต่อได้ </b><b style="color:#FF0000">*</b></label>
+                <input type="text" formControlName="ContactPhone" class="form-control" placeholder="เบอร์โทร" autocomplete=off
+                [ngClass]="{ 'is-invalid': contactphone.errors?.required && contactphone.touched}" required>
+                <div class="invalid-feedback">
+                    <span style="color:#FF3434" *ngIf="contactphone.errors?.required && contactphone.touched">กรุณากรอกเบอร์โทร</span>
+                </div>
+                <!-- <small style="color:#FF3434;font-size: 90%;" *ngIf="this.isActiveTel == true">กรุณากรอกเบอร์โทร</small> -->
+            </div>
+            <div class="form-group col-lg-6">
+                <label><b>E-mail </b><b style="color:#FF0000">*</b></label>
+                <input type="email" formControlName="Email" class="form-control" placeholder="E-mail" autocomplete=off
+                [ngClass]="{ 'is-invalid': email.errors?.required && email.touched}" required>
+                <small class="text-muted">Ex. xxx1@abc.com,xxx2@abc.com</small>
+                <div class="invalid-feedback">
+                    <span style="color:#FF3434" *ngIf="email.errors?.required && email.touched">กรุณากรอก E-mail</span>
+                </div>
+                <!-- <small style="color:#FF3434;font-size: 90%;" *ngIf="this.isActiveEmail == true">กรุณากรอก E-mail</small> -->
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="form-group col-lg-6">
+                <label><b>จำนวนผู้เข้าร่วม(คน) </b><b style="color:#FF0000">*</b></label>
+                <input type="number" formControlName="TotalPerson" (keypress)="numKeyOnly($event)"  class="form-control" placeholder="จำนวนผู้เข้าร่วม" autocomplete=off
+                [ngClass]="{ 'is-invalid': (totalperson.errors?.required && totalperson.touched) || (totalperson.value > roomviewmodel.TotalPerson)}" required>
+                <div class="invalid-feedback">
+                    <span style="color:#FF3434" *ngIf="totalperson.errors?.required && totalperson.touched">กรุณาระบุจำนวนผู้เข้าร่วม</span>
+                </div>
+                <div class="invalid-feedback">
+                    <span style="color:#FF3434" *ngIf="totalperson.value > roomviewmodel.TotalPerson">จำนวนผู้เข้าร่วมเกินความจุของห้อง</span>
+                </div>
+            </div>
+            <div class="form-group col-lg-6">
+                <label><b>อื่นๆ(โปรดระบุ)</b></label>
+                <input type="text" formControlName="Remark" class="form-control" placeholder="อื่นๆ(โปรดระบุ)" autocomplete=off>
+            </div>
+        </div>
+        <div class="row mt-5"> 
+            <p style="color: red;font-size: 19px;"><u>หมายเหตุ  :</u>	หลังเสร็จสิ้นการใช้ห้องประชุม กรุณาแจ้งเจ้าหน้าที่ โทร. 02 296 1476 หรือ 098 415 0842 ทุกครั้ง
+                หากไม่แจ้งจะมีค่าบริการเพิ่ม (หรือตัด slot) จากการใช้เกินเวลา</p>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-6">
+                <div class="form-row ">
+                    <div class="form-group">
+                        <h4>รองรับผู้เข้าร่วม {{roomviewmodel.TotalPerson}} ท่าน</h4>
+                        <h4>อุปกรณ์มาตรฐาน ที่มีให้บริการภายในห้อง</h4>
+                        <ul>
+                            <li *ngFor="let item of optionroom">{{item.Description}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <h4>อุปกรณ์ที่สามารถให้บริการเพิ่มเติม</h4>
+                        <ul>
+                            <span *ngFor="let item of optionother">
+                                <input [(ngModel)]="item.isActive" (click)="Toggleitem(item.Id,item.isActive)" [ngModelOptions]="{standalone: true}" class="form-check-input me-2" type="checkbox" value="{{item.Description}}" name="{{item.Id}}" id="{{item.Id}}" style="margin-left: -23px;margin-top: 6px;">{{item.Description}} 
+                                <span *ngIf="item.Id == 3"><br> <input [(ngModel)]="item.Destination" [ngModelOptions]="{standalone: true}" type="text" class="form-control form-control-sm" style="width:250px;" [disabled]="!item.isActive" placeholder="โปรดระบุเลขหมายปลายทาง"> </span><br> 
+                            </span>  
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- ตารางเรทราคาห้อง -->
+            <div class="col-lg-6"> 
+                <div class="card" style="height: 95%;">
+                    <div class="card-body">
+                        <!-- ทรงวาด -->
+                            <table class="table table-sm table-bordered" style="font-size: 13px;" *ngIf="reserve.RoomId == 1">
+                                <thead>
+                                    <tr class="table-primary">
+                                        <th style="width: 60%;text-align: center;">อัตราค่าบริการห้อง-วันทำการ</th>
+                                        <th style="text-align: center;">ทรงวาด</th>
+                                        <th style="text-align: center;">ราคาโปรโมชั่น</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>เต็มวัน</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">12,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">9,600 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ครึ่งวัน</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">7,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">5,600 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ค่าบริการต่อ ชม. *</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">2,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">1,600 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ส่วนเกิน ชม.ละ **</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">2,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">1,600 บาท</td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr class="table-primary">
+                                        <th style="width: 60%;text-align: center;">อัตราค่าบริการห้อง-วันหยุด</th>
+                                        <th style="text-align: center;">ทรงวาด</th>
+                                        <th style="text-align: center;">ราคาโปรโมชั่น</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>เต็มวัน</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">15,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">9,600 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ครึ่งวัน</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">9,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">5,600 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ส่วนเกิน ชม.ละ **</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">2,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">1,600 บาท</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        <!-- ทรงวาด -->
+                        <!-- รัชดา -->
+                            <table class="table table-sm table-bordered" style="font-size: 13px;" *ngIf="reserve.RoomId == 2">
+                                <thead>
+                                    <tr class="table-primary">
+                                        <th style="width: 60%;text-align: center;">อัตราค่าบริการห้อง-วันทำการ</th>
+                                        <th style="text-align: center;">รัชดา</th>
+                                        <th style="text-align: center;">ราคาโปรโมชั่น</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>เต็มวัน</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">18,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">14,000 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ครึ่งวัน</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">10,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">8,000 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ค่าบริการต่อ ชม. *</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">3,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">2,400 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ส่วนเกิน ชม.ละ **</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">3,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">2,400 บาท</td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr class="table-primary">
+                                        <th style="width: 60%;text-align: center;">อัตราค่าบริการห้อง-วันหยุด</th>
+                                        <th style="text-align: center;">รัชดา</th>
+                                        <th style="text-align: center;">ราคาโปรโมชั่น</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>เต็มวัน</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">22,500 บาท</td>
+                                        <td style="text-align: center;color:#f00;">14,000 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ครึ่งวัน</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">12,500 บาท</td>
+                                        <td style="text-align: center;color:#f00;">8,000 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ส่วนเกิน ชม.ละ **</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">3,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">2,400 บาท</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        <!-- รัชดา -->
+                        <!-- สาทร -->
+                            <table class="table table-sm table-bordered" style="font-size: 13px;" *ngIf="reserve.RoomId == 3">
+                                <thead>
+                                    <tr class="table-primary">
+                                        <th style="width: 60%;text-align: center;">อัตราค่าบริการห้อง-วันทำการ</th>
+                                        <th style="text-align: center;">สาทร</th>
+                                        <th style="text-align: center;">ราคาโปรโมชั่น</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>เต็มวัน</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">15,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">12,000 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ครึ่งวัน</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">8,500 บาท</td>
+                                        <td style="text-align: center;color:#f00;">6,800 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ค่าบริการต่อ ชม. *</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">2,500 บาท</td>
+                                        <td style="text-align: center;color:#f00;">2,000 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ส่วนเกิน ชม.ละ **</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">2,500 บาท</td>
+                                        <td style="text-align: center;color:#f00;">2,000 บาท</td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr class="table-primary">
+                                        <th style="width: 60%;text-align: center;">อัตราค่าบริการห้อง-วันหยุด</th>
+                                        <th style="text-align: center;">สาทร</th>
+                                        <th style="text-align: center;">ราคาโปรโมชั่น</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>เต็มวัน</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">19,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">12,000 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ครึ่งวัน</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">11,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">6,800 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ส่วนเกิน ชม.ละ **</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">2,500 บาท</td>
+                                        <td style="text-align: center;color:#f00;">2,000 บาท</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        <!-- สาทร -->
+                        <!-- ราชวงศ์ -->
+                            <table class="table table-sm table-bordered" style="font-size: 13px;" *ngIf="reserve.RoomId == 4">
+                                <thead>
+                                    <tr class="table-primary">
+                                        <th style="width: 60%;text-align: center;">อัตราค่าบริการห้อง-วันทำการ</th>
+                                        <th style="text-align: center;">ราชวงค์</th>
+                                        <th style="text-align: center;">ราคาโปรโมชั่น</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>เต็มวัน</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">6,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">5,400 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ครึ่งวัน</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">3,500 บาท</td>
+                                        <td style="text-align: center;color:#f00;">3,200 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ค่าบริการต่อ ชม. *</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">1,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">900 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ส่วนเกิน ชม.ละ **</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">1,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">900 บาท</td>
+                                    </tr>
+                                </tbody>
+                                <thead>
+                                    <tr class="table-primary">
+                                        <th style="width: 60%;text-align: center;">อัตราค่าบริการห้อง-วันหยุด</th>
+                                        <th style="text-align: center;">ราชวงค์</th>
+                                        <th style="text-align: center;">ราคาโปรโมชั่น</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>เต็มวัน</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">7,500 บาท</td>
+                                        <td style="text-align: center;color:#f00;">5,400 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ครึ่งวัน</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">4,500 บาท</td>
+                                        <td style="text-align: center;color:#f00;">3,200 บาท</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ส่วนเกิน ชม.ละ **</th>
+                                        <td style="text-align: center;text-decoration:line-through;text-decoration-color: #f00;">1,000 บาท</td>
+                                        <td style="text-align: center;color:#f00;">900 บาท</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        <!-- ราชวงศ์ -->
+                        <div style="font-size: 13px;margin-top: -10px; margin-bottom: 10px;">
+                            <b>*ขั้นต่ำ 2 ชม.</b><br>
+                            <b>**เศษของชม.คิดเป็น 1 ชม.</b><br>
+                            <b>อัตราค่าบริการยังไม่รวม VAT</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg col-lg-12 mt-5" (click)="Booking()">ดำเนินการต่อ</button>
+    </div>
+</section>
+<app-copyright></app-copyright>

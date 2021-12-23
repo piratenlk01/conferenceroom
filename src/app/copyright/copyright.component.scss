@@ -1,0 +1,74 @@
+
+  .footer-section {
+    background: #1a1a1a;
+    color: #fff;
+    padding: 2em 0 !important;
+  }
+  .footer-section a {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .footer-section a:hover {
+    color: #fff;
+  }
+  .footer-section p {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  .footer-section .bordertop {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+  }
+  .footer-section .contact-info span.d-block {
+    font-style: italic;
+    color: #fff;
+  }
+  .footer-section .social a {
+    font-size: 18px;
+    padding: 10px;
+  }
+  .footer-section .link li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-newsletter .form-group {
+    position: relative;
+  }
+  
+  .footer-newsletter .form-control {
+    background: none;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0;
+    color: #fff;
+  }
+  .footer-newsletter .form-control::-webkit-input-placeholder {
+    /* Chrome/Opera/Safari */
+    color: rgba(255, 255, 255, 0.2);
+    font-style: italic;
+  }
+  .footer-newsletter .form-control::-moz-placeholder {
+    /* Firefox 19+ */
+    color: rgba(255, 255, 255, 0.2);
+    font-style: italic;
+  }
+  .footer-newsletter .form-control:-ms-input-placeholder {
+    /* IE 10+ */
+    color: rgba(255, 255, 255, 0.2);
+    font-style: italic;
+  }
+  .footer-newsletter .form-control:-moz-placeholder {
+    /* Firefox 18- */
+    color: rgba(255, 255, 255, 0.2);
+    font-style: italic;
+  }
+  .footer-newsletter .form-control:active,
+  .footer-newsletter .form-control:focus {
+    border-bottom: 1px solid white;
+  }
+  
+  .footer-newsletter button[type="submit"] {
+    background: none;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
